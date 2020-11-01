@@ -11,9 +11,9 @@ last = 0
 comunications_school_link = 'https://www.iistommasosalvini.edu.it/comunicazioni-e-progetti/comunicazioni-e-news'
 
 # Bot Token
-token = '1133927300:AAEAGmQVerwhZ13D_dzi-7kqBUI_rVucH2s'
+token = os.environ('token')
 bot = telebot.TeleBot(token)
-chat_id = '-1001398133767'
+chat_id = os.environ('chat_id')
 
 
 def search_news():
@@ -62,8 +62,7 @@ def send_message(token, chat_id, text):
     #print('\n \n \n Message sended \n')
 
 # While Loop to be Active Always
-run_app = True
-while run_app:
+if __name__ == "__main__":
     titles = []
     search_news()
     actual_notice = last
