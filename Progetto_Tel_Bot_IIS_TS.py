@@ -34,6 +34,8 @@ def search_news():
 
 while True:
     search_news()
-    print(titles)
+    #print(titles)
+    for title in titles:
+        print(title)
     print(last)
     time.sleep(10)
