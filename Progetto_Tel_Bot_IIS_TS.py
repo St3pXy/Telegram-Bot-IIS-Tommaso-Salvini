@@ -34,6 +34,7 @@ def search_news():
         if last__circ:
             try:
                 last = int(full_title[14:17])
+                print(last)
                 last__circ = False
             except:
                 run_search_for_notice_with_num = True
@@ -51,6 +52,8 @@ def search_news():
                                 time.sleep(15)
 
         if actual_notice != last:
+            print(actual_notice)
+            print(last)
             title = full_title[8:-1]
             titles.append(title)
 
@@ -62,12 +65,15 @@ def send_message(token, chat_id, text):
     #print('\n \n \n Message sended \n')
 
 # While Loop to be Active Always
-while True:
+run_app = True
+while run_app:
     titles = []
     search_news()
+    print(titles)
     actual_notice = last
     if len(titles) != 0:
         for title in titles:
+            print("nuova circolare in arrivo")
             send_message(token, chat_id, title)
         send_message(token, chat_id, comunications_school_link)
     time.sleep(10)
