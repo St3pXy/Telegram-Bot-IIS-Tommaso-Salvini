@@ -1,0 +1,1 @@
+web: python3 Progetto_Tel_Bot_IIS_TS.py
