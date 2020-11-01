@@ -11,9 +11,9 @@ last = 0
 comunications_school_link = 'https://www.iistommasosalvini.edu.it/comunicazioni-e-progetti/comunicazioni-e-news'
 
 # Bot Token
-token = os.environ('token')
+token = '1133927300:AAEAGmQVerwhZ13D_dzi-7kqBUI_rVucH2s'
 bot = telebot.TeleBot(token)
-chat_id = os.environ('chat_id')
+chat_id = '-1001398133767'
 
 
 def search_news():
