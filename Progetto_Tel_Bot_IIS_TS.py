@@ -1,7 +1,7 @@
 import telebot
 import requests
 from bs4 import BeautifulSoup
-import time
+import time, os
 
 actual_notice = 120
 titles = []
