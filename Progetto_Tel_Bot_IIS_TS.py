@@ -62,7 +62,8 @@ def send_message(token, chat_id, text):
     #print('\n \n \n Message sended \n')
 
 # While Loop to be Active Always
-if __name__ == "__main__":
+run_app = True
+while run_app:
     titles = []
     search_news()
     actual_notice = last
