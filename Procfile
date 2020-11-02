@@ -1,1 +1,1 @@
-web: python Progetto_Tel_Bot_IIS_TS.py
+worker: python Progetto_Tel_Bot_IIS_TS.py
