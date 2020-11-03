@@ -22,7 +22,7 @@ def search_news():
     # Get Connection to the Web-Site
     result = requests.get(comunications_school_link)
     # Print Connection Status Code
-    #print("School Website Connection Status Code: " + str(result.status_code))
+    print("School Website Connection Status Code: " + str(result.status_code))
     src = result.content
     soup = BeautifulSoup(src, 'lxml')
 
@@ -40,18 +40,22 @@ def search_news():
                 while run_search_for_notice_with_num:
                     for i in soup.findAll('td', {'class': 'list-title'}):
                         new_title = i.get_text()
+                        print(new_title)
+                        print(full_title)
                         if new_title == full_title:
-                            time.sleep(15)
+                            time.sleep(10)
                         elif new_title != full_title:
                             try:
                                 last = int(full_title[14:17])
+                                print(last)
                                 last__circ = False
                                 run_search_for_notice_with_num = False
                             except:
-                                time.sleep(15)
+                                time.sleep(10)
 
         if actual_notice != last:
             title = full_title[8:-1]
+            print(title)
             titles.append(title)
 
 
@@ -67,6 +71,7 @@ while run_app:
     titles = []
     search_news()
     actual_notice = last
+    print(actual_notice)
     if len(titles) != 0:
         for title in titles:
             send_message(token, chat_id, title)
