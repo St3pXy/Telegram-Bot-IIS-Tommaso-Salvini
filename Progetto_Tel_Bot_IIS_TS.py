@@ -44,7 +44,7 @@ def search_news():
         if last__circ:
             last_read = title
             first_in_list = title
-            title.append(last_read)
+            titles.append(last_read)
             last__circ = False
 
         print(title)
