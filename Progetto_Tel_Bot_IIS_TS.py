@@ -3,26 +3,28 @@ import requests
 from bs4 import BeautifulSoup
 import time, os
 
-actual_notice = 120
-titles = []
-last = 0
-
 # School Site
 comunications_school_link = 'https://www.iistommasosalvini.edu.it/comunicazioni-e-progetti/comunicazioni-e-news'
 
 # Bot Token
 token = '1133927300:AAEAGmQVerwhZ13D_dzi-7kqBUI_rVucH2s'
-bot = telebot.TeleBot(token)
 chat_id = '-1001398133767'
+bot = telebot.TeleBot(token)
+
+# Global Values
+titles = []
+last_read = ''
+first_in_list = ''
+last__circ = True
 
 # Bot function for Send Messages
 def send_message(token, chat_id, text):
     url_req = 'https://api.telegram.org/bot' + token + '/sendMessage' + '?chat_id=' + chat_id + '&text=' + text
     telbot_result = requests.get(url_req)
-    #print('\n \n \n Message sended \n')
+    print("Message sended")
 
 def search_news():
-    global comunications_school_link, titles, actual_notice, last
+    global comunications_school_link, titles, last_read, first_in_list, last__circ
     global token, chat_id
 
     # Get Connection to the Web-Site
@@ -32,51 +34,39 @@ def search_news():
     src = result.content
     soup = BeautifulSoup(src, 'lxml')
 
-    last__circ = True
+    # Initialize Values
+    conta = 0
 
     for x in soup.findAll('td', {'class': 'list-title'}):
         full_title = x.get_text()
+        title = full_title[8:-1]
 
         if last__circ:
-            try:
-                last = int(full_title[14:17])
-                last__circ = False
-            except:
-                run_search_for_notice_with_num = True
-                while run_search_for_notice_with_num:
-                    for i in soup.findAll('td', {'class': 'list-title'}):
-                        new_title = i.get_text()
-                        text_new_title = new_title[8:-1]
-                        print(new_title)
-                        print(full_title)
-                        if new_title == full_title:
-                            time.sleep(10)
-                        elif new_title != full_title:
-                            try:
-                                n = int(full_title[14:17])
-                                if n > last:
-                                    last = n
-                                    print(last)
-                                    last__circ = False
-                                    send_message(token, chat_id, text_new_title)
-                                    run_search_for_notice_with_num = False
-                            except:
-                                time.sleep(10)
+            last_read = title
+            first_in_list = title
+            title.append(last_read)
+            last__circ = False
 
-        if actual_notice != last:
-            title = full_title[8:-1]
-            print(title)
+        print(title)
+        print(first_in_list)
+        conta += 1
+
+        if conta == 0 and first_in_list == title:
+            pass
+        elif conta == 0 and first_in_list != title:
             titles.append(title)
+            last__circ = True
 
 # While Loop to be Active Always
 run_app = True
 while run_app:
     titles = []
     search_news()
-    actual_notice = last
-    print(actual_notice)
+    print(title)
     if len(titles) != 0:
         for title in titles:
             send_message(token, chat_id, title)
+            print("Sended Message")
         send_message(token, chat_id, comunications_school_link)
+        print("Sended Link")
     time.sleep(10)
