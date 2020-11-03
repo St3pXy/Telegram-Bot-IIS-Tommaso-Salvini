@@ -7,8 +7,8 @@ import time, os
 comunications_school_link = 'https://www.iistommasosalvini.edu.it/comunicazioni-e-progetti/comunicazioni-e-news'
 
 # Bot Token
-token = '1133927300:AAEAGmQVerwhZ13D_dzi-7kqBUI_rVucH2s'
-chat_id = '-1001398133767'
+token = os.environ['TELEGRAMBOTTOKEN']
+chat_id = os.environ['TELEGRAMCHATID']
 bot = telebot.TeleBot(token)
 
 # Global Values
