@@ -15,9 +15,15 @@ token = '1133927300:AAEAGmQVerwhZ13D_dzi-7kqBUI_rVucH2s'
 bot = telebot.TeleBot(token)
 chat_id = '-1001398133767'
 
+# Bot function for Send Messages
+def send_message(token, chat_id, text):
+    url_req = 'https://api.telegram.org/bot' + token + '/sendMessage' + '?chat_id=' + chat_id + '&text=' + text
+    telbot_result = requests.get(url_req)
+    #print('\n \n \n Message sended \n')
 
 def search_news():
     global comunications_school_link, titles, actual_notice, last
+    global token, chat_id
 
     # Get Connection to the Web-Site
     result = requests.get(comunications_school_link)
@@ -40,16 +46,20 @@ def search_news():
                 while run_search_for_notice_with_num:
                     for i in soup.findAll('td', {'class': 'list-title'}):
                         new_title = i.get_text()
+                        text_new_title = new_title[8:-1]
                         print(new_title)
                         print(full_title)
                         if new_title == full_title:
                             time.sleep(10)
                         elif new_title != full_title:
                             try:
-                                last = int(full_title[14:17])
-                                print(last)
-                                last__circ = False
-                                run_search_for_notice_with_num = False
+                                n = int(full_title[14:17])
+                                if n > last:
+                                    last = n
+                                    print(last)
+                                    last__circ = False
+                                    send_message(token, chat_id, text_new_title)
+                                    run_search_for_notice_with_num = False
                             except:
                                 time.sleep(10)
 
@@ -57,13 +67,6 @@ def search_news():
             title = full_title[8:-1]
             print(title)
             titles.append(title)
-
-
-# Bot function for Send Messages
-def send_message(token, chat_id, text):
-    url_req = 'https://api.telegram.org/bot' + token + '/sendMessage' + '?chat_id=' + chat_id + '&text=' + text
-    telbot_result = requests.get(url_req)
-    #print('\n \n \n Message sended \n')
 
 # While Loop to be Active Always
 run_app = True
