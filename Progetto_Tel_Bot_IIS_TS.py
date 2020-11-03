@@ -62,7 +62,7 @@ run_app = True
 while run_app:
     titles = []
     search_news()
-    print(title)
+    print(titles)
     if len(titles) != 0:
         for title in titles:
             send_message(token, chat_id, title)
