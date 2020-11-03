@@ -12,7 +12,6 @@ chat_id = '-1001398133767'
 bot = telebot.TeleBot(token)
 
 # Global Values
-titles = []
 last_read = ''
 first_in_list = ''
 last__circ = True
@@ -35,7 +34,9 @@ def search_news():
     soup = BeautifulSoup(src, 'lxml')
 
     # Initialize Values
-    conta = 0
+    not_saw_my_last = True
+    count = 0
+    titles = []
 
     for x in soup.findAll('td', {'class': 'list-title'}):
         full_title = x.get_text()
@@ -43,24 +44,35 @@ def search_news():
 
         if last__circ:
             last_read = title
-            first_in_list = title
+            #first_in_list = title
+            titles.append(last_read)
+            print("variable last_read updated to: " + str(last_read))
+            last__circ = False
+        
+        if last_read != title and count == 0:
+            last_read = title
+            #first_in_list = title
             titles.append(last_read)
             last__circ = False
 
+        # Debug Code
         print(title)
-        print(first_in_list)
-        conta += 1
+        print(last_read)
+        print(count)
 
-        if conta == 0 and first_in_list == title:
-            pass
-        elif conta == 0 and first_in_list != title:
-            titles.append(title)
-            last__circ = True
+        if last_read != title:
+            if not_saw_my_last:
+                titles.append(title)
+                print("News to read ! (Appended to the titles list)")
+        if last_read == title:
+            not_saw_my_last = False
+            print("Saw my last !")
+
+        count += 1
 
 # While Loop to be Active Always
 run_app = True
 while run_app:
-    titles = []
     search_news()
     print(titles)
     if len(titles) != 0:
