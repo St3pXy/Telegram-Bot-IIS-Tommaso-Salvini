@@ -19,7 +19,7 @@ last__circ = True
 # Bot function for Send Messages
 def send_message(token, chat_id, text):
     global comunications_school_link
-    if text == comunications_school_link
+    if text == comunications_school_link:
         url_req = 'https://api.telegram.org/bot' + token + '/sendMessage' + '?chat_id=' + chat_id + '&text=' + text + '&disable_web_page_preview=True'
         telbot_result = requests.get(url_req)
         print("Message sended (LINK)")
