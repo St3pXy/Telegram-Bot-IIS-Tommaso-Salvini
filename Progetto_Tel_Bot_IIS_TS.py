@@ -18,9 +18,16 @@ last__circ = True
 
 # Bot function for Send Messages
 def send_message(token, chat_id, text):
-    url_req = 'https://api.telegram.org/bot' + token + '/sendMessage' + '?chat_id=' + chat_id + '&text=' + text + '&disable_web_page_preview=True'
-    telbot_result = requests.get(url_req)
-    print("Message sended")
+    global comunications_school_link
+    if text == comunications_school_link
+        url_req = 'https://api.telegram.org/bot' + token + '/sendMessage' + '?chat_id=' + chat_id + '&text=' + text + '&disable_web_page_preview=True'
+        telbot_result = requests.get(url_req)
+        print("Message sended (LINK)")
+    else:
+        url_req = 'https://api.telegram.org/bot' + token + '/sendMessage' + '?chat_id=' + chat_id + '&text=' + text
+        telbot_result = requests.get(url_req)
+        print("Message sended (TEXT)")
+        
 
 def search_news():
     global comunications_school_link, titles, last_read, first_in_list, last__circ
@@ -45,14 +52,14 @@ def search_news():
         if last__circ:
             last_read = title
             #first_in_list = title
-            #titles.append(last_read)
+            titles.append(last_read)
             print("variable last_read updated to: " + str(last_read))
             last__circ = False
         
         if last_read != title and count == 0:
             last_read = title
             #first_in_list = title
-            #titles.append(last_read)
+            titles.append(last_read)
             last__circ = False
 
         # Debug Code
