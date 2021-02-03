@@ -88,4 +88,6 @@ while run_app:
         send_message(token, chat_id, comunications_school_link)
         print("Sended all")
     time.sleep(50)
+    print("ended first break")
+    time.sleep(50)
     print("ended a while loop")
